@@ -33,3 +33,14 @@ export const newsStoryType = defineType({
     }),
   ],
 })
+
+import type { PortableTextBlock } from '@portabletext/types';
+
+export interface TNewsStory {
+  _id: string;
+  title: string;
+  body: PortableTextBlock[];
+  mainImage?: any;
+  slug: { current: string };
+  publishedAt?: string;
+}

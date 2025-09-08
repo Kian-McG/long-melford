@@ -54,6 +54,8 @@ const AMDOverview = () => {
             key={amd._id}
             href={amd.fileUrl ? amd.fileUrl.url : ""}
             download
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-8 border-b bg-secondary hover:bg-muted/90 hover:scale-99 transition"
           >
             <h2 className="text-xl md:text-2xl font-bold pb-2 underlin">

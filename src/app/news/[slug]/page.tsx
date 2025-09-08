@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { SanityDocument } from "next-sanity";
 import React from "react";
+import { PortableText } from "@portabletext/react";
 
 const STORY_QUERY = `*[_type == "newsStory" && slug.current == $slug][0]{
   _id,
@@ -28,22 +29,24 @@ const StoryPage = async (props: { params: Promise<{ slug: string }> }) => {
   }
 
   return (
-    <section className="min-h-screen py-8 bg-secondary">
-      <div className="container ">
-        <h1 className="text-3xl font-bold mb-4">{story.title}</h1>
-        <time className="block text-sm text-gray-500 mb-6">
+    <section className="min-h-screen py-12 bg-secondary">
+      <div className="container max-w-7xl mx-auto">
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">{story.title}</h1>
+
+        {/* Published Date */}
+        <time className="block text-sm text-gray-500 mb-8">
           {new Date(story.publishedAt).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
         </time>
-       <div>
-        {story.body[0].children.map((block: { text: string }, index: number) => (
-          <p key={index} className="mb-4">{block.text}</p>
-        ))}
-       </div>
 
+        {/* Body */}
+        <article className="prose prose-lg md:prose-xl max-w-none">
+          <PortableText value={story.body} />
+        </article>
       </div>
     </section>
   );

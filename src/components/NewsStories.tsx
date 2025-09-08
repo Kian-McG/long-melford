@@ -2,8 +2,8 @@ import React from "react";
 import NewsStory from "./NewsStory";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { SanityDocument } from "next-sanity";
-import {  ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { TNewsStory } from "@/sanity/schemaTypes/newsStoryType";
 
 // const stories = [
 //   {
@@ -51,17 +51,17 @@ const NEWS_QUERY = `*[
 
 const options = { next: { revalidate: 30 } };
 
-const stories = await client.fetch<SanityDocument[]>(NEWS_QUERY, {}, options);
+const stories = await client.fetch<TNewsStory[]>(NEWS_QUERY, {}, options);
 const NewsStories = () => {
   return (
     <section className="my-20 bg-white h-screen">
       <div className="container md:text-5xl text-3xl pb-8 font-bold">
         <Link
           href="/news"
-          className="flex items-center gap-1 hover:gap-9 transition-all duration-300"
+          className="flex items-center gap-1 transition-all duration-300 justify-between"
         >
-          {" "}
-          <h2>News Stories</h2> <ArrowRight size={50} />
+          <h2 className=" underline underline-offset-8">News Stories</h2>{" "}
+          <ArrowRight size={50} className="animate-bounce" />
         </Link>
       </div>
 
@@ -69,13 +69,14 @@ const NewsStories = () => {
         {stories.map((story, index) => (
           <div
             key={story._id}
-            className={index === 0 ? "md:col-span-2 row-span-2 md:mr-10" : ""}
+            className={`transition-transform hover:-translate-y-1 ${index === 0 ? "md:col-span-2 row-span-2 md:mr-10" : "transition-transform hover:-translate-y-1"}`}
           >
             <Link href={`/news/${story.slug.current}`}>
               <NewsStory
                 story={story}
                 className={index === 0 ? `h-[70%]` : `h-[60%]`}
                 index={index}
+                main={true}
               />
             </Link>
           </div>
