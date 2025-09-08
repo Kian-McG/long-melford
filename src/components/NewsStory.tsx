@@ -6,7 +6,7 @@ type NewsStoryProps = {
   className: string;
   story: TNewsStory;
   index: number;
-  main: boolean;
+  main?: boolean;
 };
 // title={story.title} content={story.body[0].children[0].text} slug={story.slug}
 const NewsStory = ({ story, className, index, main }: NewsStoryProps) => {
